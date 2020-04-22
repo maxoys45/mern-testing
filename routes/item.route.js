@@ -1,5 +1,6 @@
 import { Router } from 'express'
 
+import { auth } from '../middleware/auth'
 import { getItems, newItem, deleteItem } from '../controllers/item.controller'
 
 const router = Router()
@@ -7,10 +8,10 @@ const router = Router()
 router
   .route('/')
   .get(getItems)
-  .post(newItem)
+  .post(auth, newItem)
 
 router
   .route('/:id')
-  .delete(deleteItem)
+  .delete(auth, deleteItem)
 
 export default router

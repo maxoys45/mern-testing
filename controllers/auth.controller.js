@@ -44,3 +44,13 @@ export const authUser = (req, res) => {
         })
     })
 }
+
+/**
+ * Get the user.
+ */
+export const getUser = (req, res) => {
+  User
+    .findById(req.user.id)
+    .select('-password')
+    .then(user => res.json(user))
+}
