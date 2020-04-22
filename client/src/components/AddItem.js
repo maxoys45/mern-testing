@@ -28,6 +28,10 @@ class AddItem extends Component {
   render() {
     return (
       <div>
+        <hr />
+        
+        <h2>Add item</h2>
+
         <form onSubmit={this.onSubmit}>
           <label htmlFor="item">Item:</label>
           <input

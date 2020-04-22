@@ -17,16 +17,22 @@ class Items extends Component {
     const { items } = this.props.item
 
     return (
-      <ul>
-        {
-          items.map(({ _id, name }) => (
-            <li key={_id}>
-              <button onClick={this.removeItem.bind(this, _id)}>Remove</button>
-              {name}
-            </li>
-          ))
-        }
-      </ul>
+      <>
+        <hr />
+
+        <h2>Items</h2>
+
+        <ul>
+          {
+            items.map(({ _id, name }) => (
+              <li key={_id}>
+                <button onClick={this.removeItem.bind(this, _id)}>Remove</button>
+                {name}
+              </li>
+            ))
+          }
+        </ul>
+      </>
     )
   }
 }

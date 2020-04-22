@@ -7,15 +7,15 @@ import { User } from '../models/user.model'
  * Auth the user.
  */
 export const authUser = (req, res) => {
-  const { email, password } = req.body
+  const { username, password } = req.body
 
-  if (!email || !password) {
+  if (!username || !password) {
     return res.status(400).json({ msg: 'Please enter all fields.' })
   }
 
   User
-    // Check for an existing email
-    .findOne({ email })
+    // Check for an existing username
+    .findOne({ username })
     .then(user => {
       if (!user) return res.status(400).json({ msg: 'Invalid credentials.' })
 
@@ -36,7 +36,6 @@ export const authUser = (req, res) => {
                 user: {
                   id: user.id,
                   username: user.username,
-                  email: user.email,
                 },
               })
             }
