@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import path from 'path'
 
 import itemsRoute from './routes/item.route'
+import usersRoute from './routes/user.route'
 
 // Init dotenv
 dotenv.config()
@@ -26,6 +27,7 @@ mongoose
 
 // Routes
 app.use('/api/items', itemsRoute)
+app.use('/api/users', usersRoute)
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
