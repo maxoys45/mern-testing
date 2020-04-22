@@ -12,6 +12,13 @@ class Register extends Component {
     msg: null,
   }
 
+  static propTypes = {
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object.isRequired,
+    register: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired,
+  }
+
   componentDidUpdate(prevProps) {
     const { error } = this.props
 
@@ -94,13 +101,6 @@ class Register extends Component {
       </>
     )
   }
-}
-
-Register.propTypes = {
-  isAuthenticated: PropTypes.bool,
-  error: PropTypes.object.isRequired,
-  register: PropTypes.func.isRequired,
-  clearErrors: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({

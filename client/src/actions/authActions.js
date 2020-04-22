@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { returnErrors } from "./errorActions"
+import { returnErrors } from './errorActions'
 import {
   USER_LOADED,
   USER_LOADING,
@@ -52,7 +52,7 @@ export const register = ({ username, email, password}) => dispatch => {
 
       dispatch({ type: REGISTER_FAIL })
     })
-} 
+}
 
 // Login user
 export const login = ({ username, password }) => dispatch => {
@@ -76,7 +76,7 @@ export const login = ({ username, password }) => dispatch => {
 
       dispatch({ type: LOGIN_FAIL })
     })
-} 
+}
 
 // Logout user
 export const logout = () => {

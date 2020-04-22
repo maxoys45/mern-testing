@@ -7,12 +7,16 @@ import Login from './Login'
 import Logout from './Logout'
 
 class AuthContainer extends Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+  }
+
   render() {
     const { isAuthenticated, user } = this.props.auth
 
     const authComponents = (
       <>
-        <h2>{ user ? `Welcome, ${user.name}` : '' }</h2>
+        <h2>{ user ? `Welcome, ${user.username}` : '' }</h2>
 
         <Logout />
       </>
@@ -31,10 +35,6 @@ class AuthContainer extends Component {
       </>
     )
   }
-}
-
-AuthContainer.propTypes = {
-  auth: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({

@@ -5,6 +5,13 @@ import PropTypes from 'prop-types'
 import { getItems, deleteItem } from '../actions/itemActions'
 
 class Items extends Component {
+  static propTypes = {
+    getItems: PropTypes.func.isRequired,
+    deleteItem: PropTypes.func.isRequired,
+    item: PropTypes.object.isRequired,
+    isAuthenticated: PropTypes.bool,
+  }
+
   componentDidMount() {
     this.props.getItems()
   }
@@ -26,7 +33,7 @@ class Items extends Component {
           {
             items.map(({ _id, name }) => (
               <li key={_id}>
-                <button onClick={this.removeItem.bind(this, _id)}>Remove</button>
+                { this.props.isAuthenticated ? <button onClick={this.removeItem.bind(this, _id)}>Remove</button> : '' }
                 {name}
               </li>
             ))
@@ -37,14 +44,9 @@ class Items extends Component {
   }
 }
 
-Items.propTypes = {
-  getItems: PropTypes.func.isRequired,
-  deleteItem: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired,
-}
-
 const mapStateToProps = state => ({
   item: state.item,
+  isAuthenticated: state.auth.isAuthenticated,
 })
 
 export default connect(mapStateToProps, { getItems, deleteItem })(Items)

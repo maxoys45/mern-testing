@@ -9,6 +9,11 @@ class AddItem extends Component {
     name: '',
   }
 
+  static propTypes = {
+    addItem: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+  }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
@@ -29,32 +34,33 @@ class AddItem extends Component {
     return (
       <div>
         <hr />
-        
+
         <h2>Add item</h2>
 
-        <form onSubmit={this.onSubmit}>
-          <label htmlFor="item">Item:</label>
-          <input
-            id="item"
-            type="text"
-            name="name"
-            placeholder="eg. Milk"
-            onChange={this.onChange}
-          />
+        { this.props.isAuthenticated ? (
+          <form onSubmit={this.onSubmit}>
+            <label htmlFor="item">Item:</label>
+            <input
+              id="item"
+              type="text"
+              name="name"
+              placeholder="eg. Milk"
+              onChange={this.onChange}
+            />
 
-          <button type="submit">Add item</button>
-        </form>
+            <button type="submit">Add item</button>
+          </form>
+         ) : (
+          <div>You must be logged in to add an item</div>
+         )}
       </div>
     )
   }
 }
 
-AddItem.propTypes = {
-  addItem: PropTypes.func.isRequired,
-}
-
 const mapStateToProps = state => ({
   item: state.item,
+  isAuthenticated: state.auth.isAuthenticated,
 })
 
 export default connect(mapStateToProps, { addItem })(AddItem)
