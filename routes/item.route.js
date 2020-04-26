@@ -8,10 +8,12 @@ const router = Router()
 router
   .route('/')
   .get(getItems)
-  .post(auth, newItem)
+  // .post(auth, newItem)
+  .post(newItem)
 
 router
   .route('/:id')
-  .delete(auth, deleteItem)
+  // .delete(auth, deleteItem)
+  .delete(deleteItem)
 
 export default router
