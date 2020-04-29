@@ -1,15 +1,17 @@
 import React, { useContext, useEffect } from 'react'
 
-import { GlobalContext } from '../context/GlobalState'
+import ItemContext from '../context/item/ItemContext'
 import { Item } from './Item'
 
 export const Items = () => {
-  const { items, getItems } = useContext(GlobalContext)
+  const { items, loading, getItems } = useContext(ItemContext)
 
   useEffect(() => {
     getItems()
     // eslint-disable-next-line
   }, [])
+
+  if (loading) return <div>Loading...</div>
 
   return (
     <>

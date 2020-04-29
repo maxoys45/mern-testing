@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 
-import { GlobalContext } from '../context/GlobalState'
+import ItemContext from '../context/item/ItemContext'
 
 export const Item = ({ item }) => {
-  const { deleteItem } = useContext(GlobalContext)
+  const { deleteItem } = useContext(ItemContext)
 
   return (
     <li>

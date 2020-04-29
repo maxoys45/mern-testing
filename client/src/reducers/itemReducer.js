@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from '../actions/types'
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from '../context/types'
 
 const initialState = {
   items: [],
@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         items: action.payload,
-        // loading: false,
+        loading: false,
       }
 
     case ADD_ITEM:
@@ -23,6 +23,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         items: state.items.filter(item => item._id !== action.payload),
+      }
+
+    case ITEMS_LOADING:
+      return {
+        ...state,
+        loading: true,
       }
 
     default:

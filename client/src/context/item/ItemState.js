@@ -1,23 +1,22 @@
-import React, { createContext, useReducer } from 'react'
+import React, { useReducer } from 'react'
 import axios from 'axios'
 
-import itemReducer from '../reducers/itemReducer'
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from '../actions/types'
-
-const initialState = {
-  items: [],
-}
-
-// Create context
-export const GlobalContext = createContext(initialState)
+import ItemContext from './ItemContext'
+import itemReducer from '../../reducers/itemReducer'
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from '../types'
 
 // Provider component
-export const GlobalProvider = ({ children }) => {
+export const ItemState = ({ children }) => {
+  const initialState = {
+    items: [],
+    loading: false,
+  }
+
   const [state, dispatch] = useReducer(itemReducer, initialState)
 
   // Actions
   const getItems = () => {
-    // dispatch(setItemsLoading())
+    itemsLoading()
 
     axios.get('/api/items').then(response => {
       dispatch({
@@ -48,16 +47,23 @@ export const GlobalProvider = ({ children }) => {
     // .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
   }
 
+  const itemsLoading = () => {
+    dispatch({
+      type: ITEMS_LOADING,
+    })
+  }
+
   return (
-    <GlobalContext.Provider
+    <ItemContext.Provider
       value={{
         items: state.items,
+        loading: state.loading,
         getItems,
         addItem,
         deleteItem,
       }}
     >
       {children}
-    </GlobalContext.Provider>
+    </ItemContext.Provider>
   )
 }

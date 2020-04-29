@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react'
 
-import { GlobalContext } from '../context/GlobalState'
+import ItemContext from '../context/item/ItemContext'
 
 export const AddItem = () => {
   const [name, setName] = useState('')
 
-  const { addItem } = useContext(GlobalContext)
+  const { addItem } = useContext(ItemContext)
 
   const onSubmit = e => {
     e.preventDefault()
