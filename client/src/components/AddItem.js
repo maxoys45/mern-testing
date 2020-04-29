@@ -11,11 +11,11 @@ export const AddItem = () => {
     e.preventDefault()
 
     const newItem = {
-      id: Math.floor(Math.random() * 10000000),
       name,
     }
 
     addItem(newItem)
+    setName('')
   }
 
   return (
