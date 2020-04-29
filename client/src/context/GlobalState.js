@@ -1,8 +1,8 @@
 import React, { createContext, useReducer } from 'react'
 import axios from 'axios'
 
-import ItemReducer from './ItemReducer'
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from './types'
+import itemReducer from '../reducers/itemReducer'
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM } from '../actions/types'
 
 const initialState = {
   items: [],
@@ -13,26 +13,26 @@ export const GlobalContext = createContext(initialState)
 
 // Provider component
 export const GlobalProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(ItemReducer, initialState)
+  const [state, dispatch] = useReducer(itemReducer, initialState)
 
   // Actions
   const getItems = () => {
     // dispatch(setItemsLoading())
 
-    axios.get('/api/items').then(res => {
+    axios.get('/api/items').then(response => {
       dispatch({
         type: GET_ITEMS,
-        payload: res.data,
+        payload: response.data,
       })
     })
     // .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
   }
 
   const addItem = item => {
-    axios.post('/api/items', item).then(res => {
+    axios.post('/api/items', item).then(response => {
       dispatch({
         type: ADD_ITEM,
-        payload: res.data,
+        payload: response.data,
       })
     })
     // .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
