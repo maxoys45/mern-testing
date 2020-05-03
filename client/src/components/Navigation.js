@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 import AuthContext from '../context/auth/AuthContext'
+import { paths } from '../paths'
+import { LogoutButton } from './auth/LogoutButton'
 
 export const Navigation = () => {
   const { isAuthenticated } = useContext(AuthContext)
@@ -9,9 +11,17 @@ export const Navigation = () => {
   return (
     <nav>
       <ul>
-        <Link to='/'>Home</Link>
-        {isAuthenticated && (
-          <Link to='/add'>Add</Link>
+        {isAuthenticated ? (
+          <>
+            <Link to={paths.home}>Home</Link>
+            <Link to={paths.add}>Add</Link>
+            <LogoutButton />
+          </>
+        ) : (
+          <>
+            <Link to={paths.login}>Login</Link>
+            <Link to={paths.register}>Register</Link>
+          </>
         )}
       </ul>
     </nav>

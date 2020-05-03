@@ -3,24 +3,11 @@ import React, { useState, useContext } from 'react'
 // import { clearErrors } from '../../actions/errorActions'
 import AuthContext from '../../context/auth/AuthContext'
 
-export const Login = () => {
+export const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const { loginUser } = useContext(AuthContext)
-
-  // componentDidUpdate(prevProps) {
-  //   const { error } = this.props
-
-  //   if (error !== prevProps.error) {
-  //     // Check for register error
-  //     if (error.id === 'LOGIN_FAIL') {
-  //       this.setState({ msg: error.msg.msg })
-  //     } else {
-  //       this.setState({ msg: null })
-  //     }
-  //   }
-  // }
 
   const onSubmit = event => {
     event.preventDefault()
@@ -41,10 +28,6 @@ export const Login = () => {
 
   return (
     <>
-      <hr />
-
-      <h2>Login</h2>
-
       {/* { this.state.msg ? <div>{this.state.msg} <button onClick={this.clearError}>x</button></div> : null } */}
 
       <form onSubmit={onSubmit}>

@@ -2,20 +2,17 @@ import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import AuthContext from '../../context/auth/AuthContext'
+import { paths } from '../../paths'
 
-export const Logout = () => {
+export const LogoutButton = () => {
   const history = useHistory()
   const { logoutUser } = useContext(AuthContext)
 
   const onLogout = () => {
     logoutUser()
 
-    history.push('/')
+    history.push(paths.login)
   }
 
-  return (
-    <>
-      <button onClick={onLogout}>Logout</button>
-    </>
-  )
+  return <button onClick={onLogout}>Logout</button>
 }
