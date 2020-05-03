@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import AuthContext from '../../context/auth/AuthContext'
 
@@ -7,7 +7,12 @@ import { Login } from './Login'
 import { Logout } from './Logout'
 
 export const AuthContainer = () => {
-  const { isAuthenticated, user } = useContext(AuthContext)
+  const { loadUser, isAuthenticated, user } = useContext(AuthContext)
+
+  useEffect(() => {
+    loadUser()
+    // eslint-disable-next-line
+  }, [])
 
   const authComponents = (
     <>

@@ -4,7 +4,6 @@ import ErrorContext from './ErrorContext'
 import errorReducer from './ErrorReducer'
 import { GET_ERRORS, CLEAR_ERRORS } from '../types'
 
-
 // Provider component
 export const ErrorState = ({ children }) => {
   const initialState = {

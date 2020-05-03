@@ -52,4 +52,5 @@ export const getUser = (req, res) => {
     .findById(req.user.id)
     .select('-password')
     .then(user => res.json(user))
+    .catch(err => console.error(err))
 }

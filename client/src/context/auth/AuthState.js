@@ -6,11 +6,11 @@ import authReducer from './AuthReducer'
 import {
   USER_LOADED,
   USER_LOADING,
-  // AUTH_ERROR,
+  AUTH_ERROR,
   REGISTER_SUCCESS,
-  // REGISTER_FAIL,
+  REGISTER_FAIL,
   LOGIN_SUCCESS,
-  // LOGIN_FAIL,
+  LOGIN_FAIL,
   LOGOUT_SUCCESS,
 } from '../types'
 
@@ -36,11 +36,11 @@ export const AuthState = ({ children }) => {
         payload: response.data,
       }),
     )
-    // .catch(err => {
+    .catch(err => {
     //   dispatch(returnErrors(err.response.data, err.response.status))
 
-    //   dispatch({ type: AUTH_ERROR })
-    // })
+      dispatch({ type: AUTH_ERROR })
+    })
   }
 
   // Register user
@@ -60,11 +60,11 @@ export const AuthState = ({ children }) => {
         payload: response.data,
       }),
     )
-    // .catch(err => {
+    .catch(err => {
     //   dispatch(returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL'))
 
-    //   dispatch({ type: REGISTER_FAIL })
-    // })
+      dispatch({ type: REGISTER_FAIL })
+    })
   }
 
   // Login user
@@ -84,18 +84,18 @@ export const AuthState = ({ children }) => {
         payload: response.data,
       }),
     )
-    // .catch(err => {
+    .catch(err => {
     //   dispatch(returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'))
 
-    //   dispatch({ type: LOGIN_FAIL })
-    // })
+      dispatch({ type: LOGIN_FAIL })
+    })
   }
 
   // Logout user
   const logoutUser = () => {
-    return {
+    dispatch({
       type: LOGOUT_SUCCESS,
-    }
+    })
   }
 
   // Setup config/headers and token

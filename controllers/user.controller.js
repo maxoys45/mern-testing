@@ -6,58 +6,57 @@ import { User } from '../models/user.model'
 /**
  * Register the user.
  */
-export const registerUser = (req, res) => {
+export const registerUser = async (req, res) => {
   const { username, email, password } = req.body
 
   if (!username || !email || !password) {
     return res.status(400).json({ msg: 'Please enter all fields.' })
   }
 
-  User
-    // Check for an existing email
-    .findOne({ email })
-    .then(user => {
-      if (user) return res.status(400).json({ msg: 'User already exists.' })
+  // @TODO make this cleaner, seems clunky to search twice.
+  const usernameExists = await User.findOne({ username })
+  const emailExists = await User.findOne({ email })
 
-      // Create new user.
-      const newUser = new User({
-        username,
-        email,
-        password,
-      })
+  if (usernameExists || emailExists) return res.status(400).json({ msg: 'User already exists.' })
 
-      // Hash the password
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) throw err
+  // Create new user.
+  const newUser = new User({
+    username,
+    email,
+    password,
+  })
 
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err
+  // Hash the password
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) throw err
 
-          newUser.password = hash
+    bcrypt.hash(newUser.password, salt, (err, hash) => {
+      if (err) throw err
 
-          // Save the new user to the DB.
-          newUser
-            .save()
-            .then(user => {
-              jwt.sign(
-                { id: user.id },
-                process.env.JWT_SECRET,
-                { expiresIn: '90d' },
-                (err, token) => {
-                  if (err) throw err
+      newUser.password = hash
 
-                  res.json({
-                    token,
-                    user: {
-                      id: user.id,
-                      username: user.username,
-                      email: user.email,
-                    },
-                  })
-                }
-              )
-            })
+      // Save the new user to the DB.
+      newUser
+        .save()
+        .then(user => {
+          jwt.sign(
+            { id: user.id },
+            process.env.JWT_SECRET,
+            { expiresIn: '90d' },
+            (err, token) => {
+              if (err) throw err
+
+              res.json({
+                token,
+                user: {
+                  id: user.id,
+                  username: user.username,
+                  email: user.email,
+                },
+              })
+            }
+          )
         })
-      })
     })
+  })
 }

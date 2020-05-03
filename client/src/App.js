@@ -9,8 +9,9 @@ import { AuthState } from './context/auth/AuthState'
 import { Navigation } from './components/Navigation'
 import { Alert } from './components/Alert'
 import { AuthContainer } from './components/auth/AuthContainer'
-import { AddItem } from './components/AddItem'
+import ProtectedRoutes from './components/ProtectedRoutes'
 import { Items } from './components/ItemList'
+import { AddItem } from './components/AddItem'
 
 export const App = () => {
   return (
@@ -28,7 +29,9 @@ export const App = () => {
 
             <Switch>
               <Route exact path="/" component={Items} />
-              <Route exact path="/add" component={AddItem} />
+              <ProtectedRoutes>
+                <Route exact path="/add" component={AddItem} />
+              </ProtectedRoutes>
             </Switch>
           </BrowserRouter>
         </AuthState>
