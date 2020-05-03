@@ -15,9 +15,9 @@ import { AddItem } from './components/AddItem'
 
 export const App = () => {
   return (
-    <ItemState>
-      <AlertState>
-        <AuthState>
+    <AuthState>
+      <ItemState>
+        <AlertState>
           <BrowserRouter>
             <Navigation />
 
@@ -34,8 +34,8 @@ export const App = () => {
               </ProtectedRoutes>
             </Switch>
           </BrowserRouter>
-        </AuthState>
-      </AlertState>
-    </ItemState>
+        </AlertState>
+      </ItemState>
+    </AuthState>
   )
 }
