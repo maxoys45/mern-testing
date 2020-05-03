@@ -1,13 +1,13 @@
 import { Router } from 'express'
 
 import { auth } from '../middleware/auth'
-import { authUser, getUser } from '../controllers/auth.controller'
+import { loginUser, getUser } from '../controllers/auth.controller'
 
 const router = Router()
 
 router
   .route('/')
-  .post(authUser)
+  .post(loginUser)
 
 router
   .route('/user')

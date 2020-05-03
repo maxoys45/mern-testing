@@ -9,33 +9,50 @@ import {
   LOGOUT_SUCCESS,
 } from '../types'
 
-export default (state, action) => {
+// const initialState = {
+//   token: localStorage.getItem('token'),
+//   isAuthenticated: null,
+//   isLoading: false,
+//   user: null,
+// }
+
+export default function(state, action) {
   switch (action.type) {
-    case GET_ITEMS:
+    case USER_LOADING:
       return {
         ...state,
-        items: action.payload,
-        loading: false,
+        isLoading: true,
       }
-
-    case ADD_ITEM:
+    case USER_LOADED:
       return {
         ...state,
-        items: [action.payload, ...state.items],
+        isAuthenticated: true,
+        isLoading: false,
+        user: action.payload,
       }
+    case LOGIN_SUCCESS:
+    case REGISTER_SUCCESS:
+      localStorage.setItem('token', action.payload.token)
 
-    case DELETE_ITEM:
       return {
         ...state,
-        items: state.items.filter(item => item._id !== action.payload),
+        ...action.payload,
+        isAuthenticated: true,
+        isLoading: false,
       }
+    case AUTH_ERROR:
+    case LOGIN_FAIL:
+    case LOGOUT_SUCCESS:
+    case REGISTER_FAIL:
+      localStorage.removeItem('token')
 
-    case ITEMS_LOADING:
       return {
         ...state,
-        loading: true,
+        token: null,
+        user: null,
+        isAuthenticated: false,
+        isLoading: false,
       }
-
     default:
       return state
   }

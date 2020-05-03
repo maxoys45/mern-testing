@@ -1,44 +1,32 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import React, { useContext } from 'react'
 
-import Register from './Register'
-import Login from './Login'
-import Logout from './Logout'
+import AuthContext from '../../context/auth/AuthContext'
 
-class AuthContainer extends Component {
-  static propTypes = {
-    auth: PropTypes.object.isRequired,
-  }
+import { Register } from './Register'
+import { Login } from './Login'
+import { Logout } from './Logout'
 
-  render() {
-    const { isAuthenticated, user } = this.props.auth
+export const AuthContainer = () => {
+  const { isAuthenticated, user } = useContext(AuthContext)
 
-    const authComponents = (
-      <>
-        <h2>{ user ? `Welcome, ${user.username}` : '' }</h2>
+  const authComponents = (
+    <>
+      <h2>{ user ? `Welcome, ${user.username}` : '' }</h2>
 
-        <Logout />
-      </>
-    )
+      <Logout />
+    </>
+  )
 
-    const guestComponents = (
-      <>
-        <Register />
-        <Login />
-      </>
-    )
+  const guestComponents = (
+    <>
+      <Register />
+      <Login />
+    </>
+  )
 
-    return (
-      <>
-        { isAuthenticated ? authComponents : guestComponents }
-      </>
-    )
-  }
+  return (
+    <>
+      { isAuthenticated ? authComponents : guestComponents }
+    </>
+  )
 }
-
-const mapStateToProps = state => ({
-  auth: state.auth,
-})
-
-export default connect(mapStateToProps, null)(AuthContainer)

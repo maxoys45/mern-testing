@@ -6,7 +6,7 @@ import { User } from '../models/user.model'
 /**
  * Auth the user.
  */
-export const authUser = (req, res) => {
+export const loginUser = (req, res) => {
   const { username, password } = req.body
 
   if (!username || !password) {

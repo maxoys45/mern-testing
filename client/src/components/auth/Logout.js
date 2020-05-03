@@ -1,21 +1,13 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import React, { useContext } from 'react'
 
-import { logout } from '../../actions/authActions'
+import AuthContext from '../../context/auth/AuthContext'
 
-class Logout extends Component {
-  static propTypes = {
-    logout: PropTypes.func.isRequired,
-  }
+export const Logout = () => {
+  const { logoutUser } = useContext(AuthContext)
 
-  render() {
-    return (
-      <>
-        <button onClick={this.props.logout}>Logout</button>
-      </>
-    )
-  }
+  return (
+    <>
+      <button onClick={logoutUser}>Logout</button>
+    </>
+  )
 }
-
-export default connect(null, { logout })(Logout)

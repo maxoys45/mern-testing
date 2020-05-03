@@ -1,76 +1,131 @@
-import React, { useReducer, createContext } from 'react'
+import React, { useReducer } from 'react'
 import axios from 'axios'
 
+import AuthContext from './AuthContext'
 import authReducer from './AuthReducer'
 import {
   USER_LOADED,
   USER_LOADING,
-  AUTH_ERROR,
+  // AUTH_ERROR,
   REGISTER_SUCCESS,
-  REGISTER_FAIL,
+  // REGISTER_FAIL,
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
+  // LOGIN_FAIL,
   LOGOUT_SUCCESS,
 } from '../types'
-
-const AuthContext = createContext()
 
 // Provider component
 export const AuthState = ({ children }) => {
   const initialState = {
-    items: [],
-    loading: false,
+    token: localStorage.getItem('token'),
+    isAuthenticated: null,
+    isLoading: false,
+    user: null,
   }
 
   const [state, dispatch] = useReducer(authReducer, initialState)
 
-  // Actions
-  const getItems = () => {
-    itemsLoading()
+  // Check token and load user
+  const loadUser = () => {
+    // User loading
+    dispatch({ type: USER_LOADING })
 
-    axios.get('/api/items').then(response => {
+    axios.get('/api/auth/user', tokenConfig()).then(response =>
       dispatch({
-        type: GET_ITEMS,
+        type: USER_LOADED,
         payload: response.data,
-      })
-    })
-    // .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
+      }),
+    )
+    // .catch(err => {
+    //   dispatch(returnErrors(err.response.data, err.response.status))
+
+    //   dispatch({ type: AUTH_ERROR })
+    // })
   }
 
-  const addItem = item => {
-    axios.post('/api/items', item).then(response => {
+  // Register user
+  const registerUser = ({ username, email, password }) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    // Request data
+    const body = JSON.stringify({ username, email, password })
+
+    axios.post('/api/users/new', body, config).then(response =>
       dispatch({
-        type: ADD_ITEM,
+        type: REGISTER_SUCCESS,
         payload: response.data,
-      })
-    })
-    // .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
+      }),
+    )
+    // .catch(err => {
+    //   dispatch(returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL'))
+
+    //   dispatch({ type: REGISTER_FAIL })
+    // })
   }
 
-  const deleteItem = id => {
-    axios.delete(`/api/items/${id}`).then(() => {
+  // Login user
+  const loginUser = ({ username, password }) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    // Request data
+    const body = JSON.stringify({ username, password })
+
+    axios.post('/api/auth', body, config).then(response =>
       dispatch({
-        type: DELETE_ITEM,
-        payload: id,
-      })
-    })
-    // .catch(err => dispatch(returnErrors(err.response.data, err.response.status)))
+        type: LOGIN_SUCCESS,
+        payload: response.data,
+      }),
+    )
+    // .catch(err => {
+    //   dispatch(returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'))
+
+    //   dispatch({ type: LOGIN_FAIL })
+    // })
   }
 
-  const itemsLoading = () => {
-    dispatch({
-      type: ITEMS_LOADING,
-    })
+  // Logout user
+  const logoutUser = () => {
+    return {
+      type: LOGOUT_SUCCESS,
+    }
+  }
+
+  // Setup config/headers and token
+  const tokenConfig = () => {
+    // Headers
+    const config = {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    }
+
+    // If token then add to headers
+    if (state.token) {
+      config.headers['x-auth-token'] = state.token
+    }
+
+    return config
   }
 
   return (
     <AuthContext.Provider
       value={{
-        items: state.items,
-        loading: state.loading,
-        getItems,
-        addItem,
-        deleteItem,
+        token: state.token,
+        isAuthenticated: state.isAuthenticated,
+        isLoading: state.isLoading,
+        user: state.user,
+        loadUser,
+        registerUser,
+        loginUser,
+        logoutUser,
       }}
     >
       {children}
