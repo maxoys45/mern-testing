@@ -15,8 +15,6 @@ export const ItemList = () => {
 
   return (
     <>
-      <hr />
-
       <h2>Items</h2>
 
       <ul>

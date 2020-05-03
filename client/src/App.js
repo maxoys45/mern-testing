@@ -22,12 +22,10 @@ import { paths } from './paths'
 export const App = () => {
   return (
     <AuthState>
-      <ItemState>
-        <AlertState>
+      <AlertState>
+        <ItemState>
           <BrowserRouter>
             <Navigation />
-
-            <h1>My App</h1>
 
             <Alert />
 
@@ -44,8 +42,8 @@ export const App = () => {
               </ProtectedRoutes>
             </Switch>
           </BrowserRouter>
-        </AlertState>
-      </ItemState>
+        </ItemState>
+      </AlertState>
     </AuthState>
   )
 }
