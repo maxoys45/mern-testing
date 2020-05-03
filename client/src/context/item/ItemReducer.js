@@ -1,10 +1,11 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from '../context/types'
+import {
+  GET_ITEMS,
+  ADD_ITEM,
+  DELETE_ITEM,
+  ITEMS_LOADING,
+} from '../types'
 
-const initialState = {
-  items: [],
-}
-
-export default (state = initialState, action) => {
+export default (state, action) => {
   switch (action.type) {
     case GET_ITEMS:
       return {

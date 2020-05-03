@@ -1,21 +1,27 @@
 import React, { useState, useContext } from 'react'
 
 import ItemContext from '../context/item/ItemContext'
+import AlertContext from '../context/alert/AlertContext'
 
 export const AddItem = () => {
   const [name, setName] = useState('')
 
   const { addItem } = useContext(ItemContext)
+  const { setAlert } = useContext(AlertContext)
 
   const onSubmit = e => {
     e.preventDefault()
 
-    const newItem = {
-      name,
-    }
+    if (name === '') {
+      setAlert('Please enter an item.', 'error')
+    } else {
+      const newItem = {
+        name,
+      }
 
-    addItem(newItem)
-    setName('')
+      addItem(newItem)
+      setName('')
+    }
   }
 
   return (

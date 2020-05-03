@@ -2,8 +2,13 @@ import React, { useReducer } from 'react'
 import axios from 'axios'
 
 import ItemContext from './ItemContext'
-import itemReducer from '../../reducers/itemReducer'
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from '../types'
+import itemReducer from './ItemReducer'
+import {
+  GET_ITEMS,
+  ADD_ITEM,
+  DELETE_ITEM,
+  ITEMS_LOADING,
+} from '../types'
 
 // Provider component
 export const ItemState = ({ children }) => {
