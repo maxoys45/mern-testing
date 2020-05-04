@@ -7,9 +7,9 @@ import { AlertState } from './context/alert/AlertState'
 import { AuthState } from './context/auth/AuthState'
 
 // Pages
-import Login from './pages/Login'
-import Register from './pages/Register'
 import Home from './pages/Home'
+import Register from './pages/Register'
+import Dashboard from './pages/Dashboard'
 import AddItem from './pages/AddItem'
 
 // Components
@@ -33,11 +33,11 @@ export const App = () => {
             <CheckAuth />
 
             <Switch>
-              <Route exact path={paths.login} component={Login} />
+              <Route exact path={paths.home} component={Home} />
               <Route exact path={paths.register} component={Register} />
 
               <ProtectedRoutes>
-                <Route exact path={paths.home} component={Home} />
+                <Route exact path={paths.dashboard} component={Dashboard} />
                 <Route exact path={paths.add} component={AddItem} />
               </ProtectedRoutes>
             </Switch>

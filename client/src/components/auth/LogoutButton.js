@@ -11,7 +11,7 @@ export const LogoutButton = () => {
   const onLogout = () => {
     logoutUser()
 
-    history.push(paths.login)
+    history.push(paths.home)
   }
 
   return <button onClick={onLogout}>Logout</button>

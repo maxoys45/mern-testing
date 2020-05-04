@@ -13,13 +13,13 @@ export const Navigation = () => {
       <ul>
         {isAuthenticated ? (
           <>
-            <Link to={paths.home}>Home</Link>
+            <Link to={paths.dashboard}>Home</Link>
             <Link to={paths.add}>Add</Link>
             <LogoutButton />
           </>
         ) : (
           <>
-            <Link to={paths.login}>Login</Link>
+            <Link to={paths.home}>Login</Link>
             <Link to={paths.register}>Register</Link>
           </>
         )}

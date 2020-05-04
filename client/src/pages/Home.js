@@ -1,18 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
-import { ItemList } from '../components/ItemList'
 import AuthContext from '../context/auth/AuthContext'
+import { LoginForm } from '../components/auth/LoginForm'
+import { paths } from '../paths'
 
-export default () => {
-  const { user } = useContext(AuthContext)
+export default ({ history }) => {
+  const { isAuthenticated } = useContext(AuthContext)
+
+  useEffect(() => {
+    if (isAuthenticated) history.push(paths.dashboard)
+  }, [isAuthenticated, history])
+
 
   return (
     <>
-      {user && (<div>Hello, {user.username}</div>)}
-
       <hr />
 
-      <ItemList />
+      <p>Welcome to my shite website.</p>
+
+      <LoginForm />
     </>
   )
 }

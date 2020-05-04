@@ -7,9 +7,7 @@ import { paths } from '../paths'
 const ProtectedRoutes = ({ history, children }) => {
   const { isAuthenticated } = useContext(AuthContext)
 
-  if (!isAuthenticated) {
-    history.push(paths.login)
-  }
+  if (!isAuthenticated) history.push(paths.home)
 
   return <>{children}</>
 }

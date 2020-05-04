@@ -8,7 +8,7 @@ import { paths } from '../paths'
 export default () => {
   const { isAuthenticated } = useContext(AuthContext)
 
-  if (isAuthenticated) return <Redirect to={paths.home} />
+  if (isAuthenticated) return <Redirect to={paths.dashboard} />
 
   return (
     <>
