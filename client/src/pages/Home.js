@@ -11,7 +11,6 @@ export default ({ history }) => {
     if (isAuthenticated) history.push(paths.dashboard)
   }, [isAuthenticated, history])
 
-
   return (
     <>
       <hr />
