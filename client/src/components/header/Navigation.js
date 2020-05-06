@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 
-import AuthContext from '../context/auth/AuthContext'
-import { paths } from '../paths'
-import { LogoutButton } from './auth/LogoutButton'
+import AuthContext from '../../context/auth/AuthContext'
+import { paths } from '../../paths'
+import { LogoutButton } from '../auth/LogoutButton'
 
 export const Navigation = () => {
   const { isAuthenticated } = useContext(AuthContext)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import './App.css'
+import './App.scss'
 import { ItemState } from './context/item/ItemState'
 import { AlertState } from './context/alert/AlertState'
 import { AuthState } from './context/auth/AuthState'
@@ -13,7 +13,7 @@ import Dashboard from './pages/Dashboard'
 import AddItem from './pages/AddItem'
 
 // Components
-import { Navigation } from './components/Navigation'
+import { Header } from './components/header/Header'
 import { Alert } from './components/Alert'
 import { CheckAuth } from './components/auth/CheckAuth'
 import ProtectedRoutes from './components/ProtectedRoutes'
@@ -25,7 +25,7 @@ export const App = () => {
       <AlertState>
         <ItemState>
           <BrowserRouter>
-            <Navigation />
+            <Header />
 
             <Alert />
 
